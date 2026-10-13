@@ -1,0 +1,13 @@
+*.swp
+*.log
+.DS_Store
+__pycache__/
+/cache/
+
+# ignore virtual envs
+venv/
+env/
+.venv/
+
+.continue
+.continueignore
