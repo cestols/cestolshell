@@ -1,0 +1,1 @@
+-- hyprland/env.lua: environment variables

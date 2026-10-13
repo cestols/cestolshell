@@ -1,0 +1,1 @@
+-- hyprland/variables.lua: default programs

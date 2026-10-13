@@ -11,3 +11,6 @@ env/
 
 .continue
 .continueignore
+
+# Ignore other cloned repos as inspiration and documentation
+docs/repos/

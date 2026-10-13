@@ -1,0 +1,1 @@
+-- hyprland/execs.lua: programs to start with the session

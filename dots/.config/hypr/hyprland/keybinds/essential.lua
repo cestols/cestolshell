@@ -1,0 +1,1 @@
+-- hyprland/keybinds/essential.lua: level 1: binds that only talk to Hyprland and system programs, never to the shell

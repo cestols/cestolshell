@@ -1,0 +1,1 @@
+-- hyprland/rules.lua: window and layer rules

@@ -1,0 +1,1 @@
+-- hyprland/lib/init.lua: file for future use (e.g. utility functions)

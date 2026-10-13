@@ -1,0 +1,1 @@
+-- hyprland/appearance.lua: base appearance: gaps, borders, decorations

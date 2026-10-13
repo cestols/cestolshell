@@ -1,0 +1,1 @@
+-- hyprland/monitors.lua: monitor configuration (must be loaded first)

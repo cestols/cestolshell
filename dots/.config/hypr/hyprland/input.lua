@@ -1,0 +1,1 @@
+-- hyprland/input.lua: keyboard, mouse, touchpad
