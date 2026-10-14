@@ -2,37 +2,44 @@
 
 Tracks feature parity with reference projects.
 
+Legend: ✅ Done · 🟠 Partial · 🟡 Planned · 🔴 Future (post 1.0)
+
 ## end-4 / dots-hyprland (illogical-impulse)
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Hyprland Lua config structure | ✅ Done | Modular, luacheck/stylua clean |
-| Tier 1 keybindings | 🟡 Planned | Essential binds work without shell |
-| Tier 2 keybindings (IPC) | 🟡 Planned | Requires Quickshell 0.1 |
-| Tier 3 keybindings | 🟡 Planned | Workgroups, scratchpads, submaps |
+| Hyprland Lua config structure | ✅ Done | Modular, luacheck/stylua clean, covered by `dev/test.sh` |
+| Monitor config | ✅ Done | Fallback rule only (`preferred`, `auto`); per-machine overrides come with custom configs |
+| Environment variables | ✅ Done | `env.lua`: cursor, Wayland-first toolkits, Flatpak data dirs |
+| Autostart (exec-once) | ✅ Done | `execs.lua` (`hyprland.start` hook): D-Bus env, polkit agent, hypridle, cursor; shell in 0.1 |
+| Animations | ✅ Done | M3 motion curves + per-element animations in `animations.lua` |
+| Gestures | ✅ Done | 3-finger move/pinch fullscreen, 4-finger workspace swipe; overview gesture in 0.6 |
+| Window rules (floating, tiling, PiP) | ✅ Done | `rules.lua`: dialogs, utilities, PiP, screen share indicator, tearing |
+| Layer rules | 🟠 Partial | Fallback launcher and tools done; `quickshell:*` namespaces from 0.1 |
+| Tier 1 keybindings | ✅ Done | `keybinds/essential.lua`: apps, windows, workspaces 1-10, session, hardware keys |
+| Fallback launcher | ✅ Done | `rofi` on `SUPER + R`, layer rules in `rules.lua`; replaced by the shell in 0.6 |
 | hyprlock config | 🟡 Planned | In `dots/.config/hypr/hyprlock/` |
-| hypridle config | 🟡 Planned | In `dots/.config/hypr/hypridle.conf` |
-| Window rules (floating, tiling, PiP) | 🟡 Planned | In `rules.lua` |
-| Monitor config | 🟡 Planned | Hardcoded, needs custom override |
-| Gestures | 🟡 Planned | 3/4 finger swipe/pinch |
-| Animations | 🟡 Planned | Curves + per-element |
-| Layer rules | 🟡 Planned | Quickshell/AGS namespaces |
-| Autostart (exec-once) | 🟡 Planned | `execs.lua` |
-| Custom variables override | 🟡 Partial | `variables.lua` mentions it, missing `pcall(require)` |
+| hypridle config | 🟡 Planned | `hypridle` already started by `execs.lua`, config file missing (needed by the lock bind) |
+| Custom config override | 🟡 Planned | `TODO` in `hyprland.lua` (user overrides loaded with `pcall(require)`) |
+| Tier 2 keybindings (IPC) | 🟡 Planned | 0.3, through `hyprland/qs/ipc.lua` (0.1) |
+| Tier 3 keybindings | 🟡 Planned | 0.7: workspaces, scratchpads, submaps, zoom |
+| Installer (`setup`) | 🟡 Planned | 0.7; `dev/checkdeps.sh` covers dependency checks meanwhile |
+| Settings GUI | 🔴 Future | 1.x |
+| Left sidebar / AI | 🔴 Future | 1.x |
+| Live overview previews | 🔴 Future | 1.x |
 
 ## snowarch / iNiR
-scm-history-item:/home/cestols/Projects/cestolshell?%7B%22repositoryId%22%3A%22scm1%22%2C%22historyItemId%22%3A%22ab9a8c5a18116249fb38b55a669a35fb9af5007a%22%2C%22historyItemDisplayId%22%3A%22ab9a8c5%22%7D
+
 | Feature | Status | Notes |
 |---------|--------|-------|
+| Shell directory architecture | 🟡 Planned | `services/` + `modules/common/`, scaffolded by `dev/scaffold.sh` (0.1) |
 | Material Design 3 tokens | 🟡 Planned | `Appearance` singleton (0.2) |
 | Top bar | 🟡 Planned | 0.3 |
 | Right sidebar (control center) | 🟡 Planned | 0.4 |
 | Notification daemon | 🟡 Planned | 0.4 |
-| Dynamic theming (matugen) | 🟡 Planned | 0.5 |
+| Dynamic theming (matugen) | 🟡 Planned | 0.5; static M3 colors in `appearance.lua` until then |
 | Application launcher | 🟡 Planned | 0.6 |
 | Workspace overview | 🟡 Planned | 0.6 |
 | OSD (volume/brightness) | 🟡 Planned | 0.6 |
 | Session/power menu | 🟡 Planned | 0.6 |
-| Settings GUI | 🔴 Future | 1.x |
-| Left sidebar / AI | 🔴 Future | 1.x |
-| Live overview previews | 🔴 Future | 1.x |
+| Desktop widgets | 🔴 Future | 2.x |

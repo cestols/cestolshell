@@ -14,35 +14,58 @@ once contributions open (and already apply to my own work).
 
 ## Code Style
 
+- **Everything in English**: code, comments, docs, commits.
+- **Formatting**: `.editorconfig` (UTF-8, LF, final newline). Indentation: Lua and QML 4 spaces,
+  shell 2, JSON/Markdown/TOML/YAML 2.
 - **Lua**: `stylua`, `luacheck` (globals: `hl` only)
 - **QML**: `qmlformat`, `qmllint`
 - **Shell**: `shellcheck`
-- **Commits**: Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`)
+- **Commits**: Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`), with an
+  optional scope (`feat(hypr):`, `chore(dev):`). Small, atomic commits.
 
-## Pre-commit
+## File Headers
+
+New source files (`.lua`, `.qml`, `.js`, `.sh`, `.py`) start with an SPDX header in the file's
+comment syntax (after the shebang for scripts), followed by a one-line description:
+
+```lua
+-- SPDX-License-Identifier: GPL-3.0-only
+-- Copyright (C) 2026 Cestols
+
+-- hyprland/example.lua: what this file does
+```
+
+## Testing
 
 ```bash
+dev/test.sh                  # Hyprland --verify-config + Lua checks in tests/hypr
 pre-commit install
-pre-commit run --all-files
+pre-commit run --all-files   # stylua, luacheck, shellcheck, qmllint, dev/test.sh
 ```
+
+Then try the change in a nested session with `dev/run-nested.sh`.
 
 ## Architecture Rules
 
 1. **No hardcoded values** in QML → use `Appearance` singleton
 2. **Layer direction**: `services` → `widgets` → `modules` (never reverse)
 3. **No global variables** in Lua → modules return tables
-4. **IPC first** → Hyprland ↔ Quickshell via `qs ipc call`
+4. **IPC first** → Hyprland ↔ Quickshell via `qs -c cestolshell ipc call`
 5. **Keybinding tiers**:
-	- Tier 1: Hyprland only (works without shell)
-	- Tier 2: Shell IPC calls
-	- Tier 3: Utilities/extras
+   - Tier 1: Hyprland only (works without shell)
+   - Tier 2: Shell IPC calls
+   - Tier 3: Utilities/extras
+6. **Dependencies**: add a package to `sdata/dist-arch/*.txt` in the same commit that starts using it
 
 ## Adding Code from Upstreams
 
-If copying from `end-4/dots-hyprland` or `snowarch/iNiR`:
-1. Keep original copyright header
-2. Add entry to `docs/NOTICE.md`
-3. Update `docs/PARITY.md`
+If copying from `end-4/dots-hyprland`, `snowarch/iNiR` or any other project:
+
+1. Check that the license is GPL-3.0 compatible
+2. Keep the original copyright header unchanged
+3. Add a copyright line for the original authors and repo, then one for your modifications
+4. Add an entry to `docs/NOTICE.md`
+5. Update `docs/PARITY.md`
 
 ## Versioning
 

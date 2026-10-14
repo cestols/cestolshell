@@ -30,8 +30,9 @@ Instead of fork-and-modify, the codebase is being rewritten from scratch to ensu
 
 - **Repository Layout**: Inspired by `end-4`. A `dots/` directory mirrors `$HOME` and is installed via GNU Stow (`stow -d . -t ~ --no-folding dots`).
 - **Shell Architecture**: Inspired by `iNiR`. Separated into `modules/common/` (appearance, tokens, shared widgets) and `services/`.
-- **Window Manager**: Hyprland (v0.56.2+), configured using native **Lua** scripts (`hyprland.lua`).
-- **IPC First**: The compositor communicates with Quickshell strictly via IPC commands (`qs ipc call <target> <function>`) without relying on global shortcuts.
+- **Window Manager**: Hyprland (tested with v0.56.2), configured using native **Lua** scripts (`hyprland.lua`).
+- **IPC First**: The compositor communicates with Quickshell strictly via IPC commands (`qs -c cestolshell ipc call <target> <function>`, wrapped by the `hyprland/qs/` Lua helper) without relying on global shortcuts.
+- **Testing**: `dev/test.sh` runs `Hyprland --verify-config`, then Lua checks against a strict mock of the `hl` API generated from Hyprland's stubs (`/usr/share/hypr/stubs/hl.meta.lua`), so calls to functions the installed Hyprland does not provide fail.
 - **Theme Generation**: **Matugen** generates M3 color roles in a JSON payload, consumed by the shell's `Appearance` singleton.
 
 ---
@@ -46,30 +47,41 @@ Instead of fork-and-modify, the codebase is being rewritten from scratch to ensu
   - QML: `qmllint`, `qmlformat`
   - Lua: `lua-language-server`, `stylua`, `luacheck`
   - Bash: `shellcheck`
+  - Hyprland config: `dev/test.sh` (`--verify-config` + `tests/hypr`)
+  - Hooks: `pre-commit` runs all of the above
 
 ---
 
 ## 5. Repository Structure
+
+Entries marked *(planned)* are created by `dev/scaffold.sh --stage X.Y` when their stage starts.
 
 ```text
 cestolshell/
 ├── dots/                                # Mirrors $HOME; installed via Stow
 │   └── .config/
 │       ├── hypr/                        # Hyprland Lua configuration
-│       ├── matugen/                     # Matugen config and templates
-│       └── quickshell/cestolshell/    # Quickshell bundle
+│       │   ├── hyprland.lua             # Entry point (loads hyprland/* in order)
+│       │   ├── hyprland/                # monitors, env, execs, appearance, animations,
+│       │   │                            # input, rules, variables, keybinds/, lib/, qs/
+│       │   ├── hyprlock/                # Lock screen config
+│       │   └── scripts/                 # Hyprland helper scripts
+│       ├── matugen/                     # Matugen config and templates (planned, 0.5)
+│       └── quickshell/cestolshell/      # Quickshell bundle (planned, 0.1+)
 │           ├── shell.qml
-│           ├── services/                # Audio, Network, Battery, Hyprland, etc.
+│           ├── services/                # Audio, Network, Battery, HyprlandData, etc.
+│           ├── scripts/                 # Wallpaper, theming, palette sync
 │           └── modules/
-│               ├── common/              # Appearance, Config, M3 widgets
+│               ├── common/              # Appearance, Config, Directories, M3 widgets
 │               └── bar/ sidebarRight/ overview/ ...
-├── assets/                              # Default fonts and wallpapers
-├── dev/                                 # Dev scripts (e.g., scaffold.sh)
-├── scripts/                             # Runtime helper scripts
-├── sdata/                               # Installer package lists and data
-├── setup                                # Entrypoint script: install, uninstall, checkdeps
-├── docs/                                # Project documentation (PROJECT.md, VERSIONING.md, NOTICE.md)
+├── assets/                              # Default fonts and wallpapers (planned, 0.2)
+├── dev/                                 # Dev scripts: scaffold, test, run-nested, run-shell, checkdeps
+├── docs/                                # PROJECT.md, VERSIONING.md, NOTICE.md, PARITY.md
+├── sdata/dist-arch/                     # Installer package lists (core, system, theming, aur, dev)
+├── tests/hypr/                          # Lua checks for the Hyprland config
+├── setup                                # Entrypoint script: install, uninstall, checkdeps (planned, 0.7)
 ├── CHANGELOG.md
+├── CONTRIBUTING.md
 ├── LICENSE
 └── README.md
 ```
@@ -80,7 +92,7 @@ cestolshell/
 
 Keybindings are divided into three tiers to guarantee safety and independence:
 
-1. **Tier 1 (Essential)**: Direct interactions with Hyprland and system utilities (`kitty`, window management, workspaces, volume/brightness hardware keys). **Does not rely on Quickshell**.
+1. **Tier 1 (Essential)**: Direct interactions with Hyprland and system utilities (`kitty`, fallback launcher `rofi`, window management, workspaces, volume/brightness hardware keys). **Does not rely on Quickshell**.
 2. **Tier 2 (Shell Interactions)**: Calls Quickshell modules via IPC (launcher, overview, sidebars, OSDs).
 3. **Tier 3 (Utilities & Extras)**: Workgroups, scratchpads, region capture tools, emoji pickers, submaps.
 
@@ -102,4 +114,3 @@ Keybindings are divided into three tiers to guarantee safety and independence:
 ### Post 1.0 (Future Scope)
 * **1.x**: Complete feature parity with `end-4` (Settings GUI, Left sidebar / AI integrations, Live overview previews).
 * **2.x**: Modular styles engine, desktop widgets, customizable bar layouts.
-````
