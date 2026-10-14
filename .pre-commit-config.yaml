@@ -21,3 +21,9 @@ repos:
         entry: qmllint
         language: system
         files: \.qml$
+      - id: hypr-tests
+        name: hypr-tests
+        entry: dev/test.sh
+        language: system
+        files: ^(dots/\.config/hypr/|tests/hypr/).*\.lua$
+        pass_filenames: false
