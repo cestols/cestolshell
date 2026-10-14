@@ -9,6 +9,9 @@ venv/
 env/
 .venv/
 
+# ignore AI files
+AGENTS.md
+.claude
 .continue
 .continueignore
 
