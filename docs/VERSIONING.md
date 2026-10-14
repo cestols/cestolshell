@@ -42,7 +42,7 @@ Bump `0.x.y` when:
 
 Bump `0.x` when:
 
-- The main goal and definition of done ("Fatto quando") for the current macro-stage is achieved[cite: 1, 2].
+- The main goal and definition of done for the current macro-stage is achieved.
 - The project is ready to transition to the next feature area.
 
 ### Do NOT Bump Version
