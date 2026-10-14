@@ -1,0 +1,26 @@
+# Core packages: compositor, shell runtime, base tooling.
+# Format: one package per line, "# ..." comments allowed.
+# Add a package in the same commit that starts using it.
+
+# --- Compositor (0.0) ---
+hyprland                        # tested with 0.56.2, Lua config
+hyprlock                        # lock screen until the shell has its own (0.0.6)
+hypridle                        # idle lock / dpms / suspend, runs hyprlock
+xdg-desktop-portal-hyprland     # screen sharing, file dialogs
+xdg-desktop-portal-gtk
+hyprpolkitagent                 # polkit authentication agent
+
+# --- Shell runtime (0.1) ---
+quickshell                      # Qt 6 required; see aur.txt if not in the repos
+qt6-base
+qt6-declarative                 # also ships qmllint, qmlformat, qmlls
+qt6-svg
+qt6-5compat
+qt6-wayland
+qt6-multimedia
+qt6-imageformats
+
+# --- Base tooling ---
+git
+stow                            # dotfiles install: stow -d . -t ~ --no-folding dots
+kitty                           # default terminal (Super+Enter)

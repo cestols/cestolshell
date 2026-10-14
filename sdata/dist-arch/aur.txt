@@ -1,0 +1,5 @@
+# AUR packages (not in the official Arch repos or CachyOS repos).
+# Move a package to another list if it appears in the repos.
+
+ttf-material-symbols-variable-git   # Material Symbols icon font (Rounded axis)
+bibata-cursor-theme-bin             # cursor theme (Bibata-Modern-Classic)

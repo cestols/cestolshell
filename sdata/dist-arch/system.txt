@@ -1,0 +1,21 @@
+# System services and tools called by Hyprland binds and the shell.
+
+# --- Audio (0.0.5 / 0.3) ---
+pipewire
+pipewire-pulse
+wireplumber                     # provides wpctl
+
+# --- Hardware keys and media (0.0.5) ---
+brightnessctl                   # brightness keys, OSD
+playerctl                       # media keys, MPRIS
+
+# --- Services for the shell (0.3) ---
+networkmanager                  # network service
+bluez                           # Bluetooth service
+bluez-utils
+upower                          # battery service
+
+# --- Provisional tools (0.0.6), uncomment when chosen ---
+# grim                          # screenshot
+# slurp                         # region selection
+rofi                            # provisional launcher (Super+R), replaced in 0.6

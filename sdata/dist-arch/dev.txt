@@ -1,0 +1,15 @@
+# Development tools only. Not needed by someone who just uses the dotfiles.
+
+# --- Lua (Hyprland config) ---
+lua-language-server
+stylua
+luacheck                        # declare `hl` as a global
+
+# --- QML ---
+# qmllint, qmlformat and qmlls come with qt6-declarative (core.txt)
+
+# --- Shell scripts ---
+shellcheck
+
+# --- Git hooks ---
+pre-commit

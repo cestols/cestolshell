@@ -1,0 +1,12 @@
+# Theming: palette generation, fonts, toolkit theming.
+
+# --- Palette (0.5) ---
+matugen                         # M3 palette -> JSON of roles, app templates
+
+# --- Fonts (0.2) ---
+inter-font                      # text font (can be swapped: Roboto Flex, Rubik)
+# Material Symbols (Rounded) icon font: see aur.txt
+
+# --- Toolkit theming (0.5), uncomment when chosen ---
+# adw-gtk-theme                 # GTK3 base for generated colors
+# nwg-look                      # GTK settings from Wayland
