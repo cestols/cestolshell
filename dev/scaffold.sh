@@ -191,13 +191,12 @@ require("hyprland.rules")
 
 -- Keybinds
 require("hyprland.keybinds.essential")
+-- 0.3: require("hyprland.keybinds.shell")
 -- 0.7: require("hyprland.keybinds.extras")
 
 -- Shell IPCs
--- 0.3: require("hyprland.keybinds.shell")
+-- 0.1: require("hyprland.qs")
 
--- User overrides, loaded last: ~/.config/hypr/custom/init.lua
-lib.optional_require("custom")
 EOF
   # Hyprland config files
   lua_stub hyprland/monitors.lua "monitor configuration (must be loaded first)"
