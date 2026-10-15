@@ -11,11 +11,11 @@ require("hyprland.rules")
 
 -- Keybinds
 require("hyprland.keybinds.essential")
--- 0.3: require("hyprland.keybinds.shell")
+require("hyprland.keybinds.shell")
 -- 0.7: require("hyprland.keybinds.extras")
 
--- Shell IPCs
--- require("hyprland.qs")
+-- Shell libs
+require("hyprland.qs")
 
 -- Custom modules
 -- TODO: support custom configs

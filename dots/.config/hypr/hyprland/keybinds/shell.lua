@@ -1,0 +1,1 @@
+-- hyprland/keybinds/shell.lua: level 2: binds towards the shell via IPC

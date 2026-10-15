@@ -160,7 +160,7 @@ test("keybinds are not bound twice", function()
     expect_none(problems)
 end)
 
--- ######## Project rules (CLAUDE.md) ########
+-- ######## Project rules ########
 
 local SHELL_PATTERNS = { "%f[%w]qs%f[%W]", "quickshell" }
 
@@ -195,16 +195,49 @@ test("shell binds use IPC, never global shortcuts", function()
     expect_none(problems)
 end)
 
--- Not required by hyprland.lua until keybinds.shell (0.3): load it here.
--- Expected API: command(target, fn, ...) returns the quoted command line,
--- call(target, fn, ...) returns hl.dsp.exec_cmd(command(...)). Skipped until qs/ipc.lua exists.
-local ipc_file = io.open(root .. "/hyprland/qs/ipc.lua")
-if not ipc_file then
-    print("skip  qs IPC helper (hyprland/qs/ipc.lua not written yet)")
+-- Level 2 binds grow with the shell (from 0.1): every bind in keybinds/shell.lua
+-- must dispatch a `qs -c <config> ipc call ...` built by hyprland.qs.ipc.
+test("level-2 keybinds go through the qs IPC helper", function()
+    local problems = {}
+    for _, call in ipairs(mock.find(log, "hl.bind")) do
+        if call.source:match("keybinds/shell%.lua$") then
+            local dsp = call.args[2]
+            local cmd = type(dsp) == "table" and dsp.dispatcher == "hl.dsp.exec_cmd" and dsp.args[1]
+            if not (type(cmd) == "string" and cmd:match("^qs %-c %S+ ipc call ")) then
+                table.insert(
+                    problems,
+                    ("bind %q in keybinds/shell.lua does not use the IPC helper"):format(call.args[1])
+                )
+            end
+        end
+    end
+    expect_none(problems)
+end)
+
+local shell_binds = io.open(root .. "/hyprland/keybinds/shell.lua")
+if shell_binds then
+    shell_binds:close()
+    test("keybinds/shell.lua is loaded by hyprland.lua", function()
+        assert(package.loaded["hyprland.keybinds.shell"], 'missing require("hyprland.keybinds.shell") in hyprland.lua')
+    end)
+end
+
+-- hyprland.qs (qs/init.lua) exposes the helper submodules (ipc, ...).
+-- Expected ipc API: command(target, fn, ...) returns the quoted command line,
+-- call(target, fn, ...) returns hl.dsp.exec_cmd(command(...)). Skipped until qs/init.lua exists.
+local qs_file = io.open(root .. "/hyprland/qs/init.lua")
+if not qs_file then
+    print("skip  qs IPC helper (hyprland/qs/init.lua not written yet)")
 else
-    ipc_file:close()
+    qs_file:close()
+    test("hyprland.qs exposes the IPC helper", function()
+        local qs = require("hyprland.qs")
+        assert(type(qs) == "table", "qs/init.lua must return a table")
+        assert(type(qs.ipc) == "table", "qs/init.lua must expose ipc (require of hyprland.qs.ipc)")
+    end)
+
     test("qs IPC helper builds quoted qs ipc call commands", function()
-        local ipc = require("hyprland.qs.ipc")
+        local ipc = require("hyprland.qs").ipc
         local expected = [[qs -c 'cestolshell' ipc call 'shell' 'ping' 'it'\''s' '2']]
         local got = ipc.command("shell", "ping", "it's", 2)
         assert(got == expected, ("command: expected %q, got %q"):format(expected, got))
