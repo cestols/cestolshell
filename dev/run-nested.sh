@@ -28,18 +28,18 @@ mkdir -p "$DEV_CONFIG" "$DEV_DATA" "$DEV_CACHE"
 
 # 4. Create isolated symlinks for the fake $XDG_CONFIG_HOME
 if [[ -d "$DOTS_CONFIG" ]]; then
-  echo "  [+] Linking components from dots/.config:"
-  for item in "$DOTS_CONFIG"/*; do
-    if [[ -e "$item" ]]; then
-      base_name="$(basename "$item")"
-      ln -s "$item" "$DEV_CONFIG/$base_name"
-      echo "      -> $base_name -> \$XDG_CONFIG_HOME/$base_name"
-    fi
-  done
+    echo "  [+] Linking components from dots/.config:"
+    for item in "$DOTS_CONFIG"/*; do
+        if [[ -e "$item" ]]; then
+            base_name="$(basename "$item")"
+            ln -s "$item" "$DEV_CONFIG/$base_name"
+            echo "      -> $base_name -> \$XDG_CONFIG_HOME/$base_name"
+        fi
+    done
 else
-  echo "  [!] ERROR: $DOTS_CONFIG does not exist!" >&2
-  echo "      Run dev/scaffold.sh first to generate the structure." >&2
-  exit 1
+    echo "  [!] ERROR: $DOTS_CONFIG does not exist!" >&2
+    echo "      Run dev/scaffold.sh first to generate the structure." >&2
+    exit 1
 fi
 
 # 5. Isolate environment variables for the nested instance
@@ -55,12 +55,12 @@ export HYPRLAND_NO_SD_NOTIFY=1
 MAIN_LUA="$DEV_CONFIG/hypr/hyprland.lua"
 
 if [[ ! -f "$MAIN_LUA" ]]; then
-  echo "  [!] WARNING: $MAIN_LUA not found." >&2
-  echo "      Falling back to Hyprland's default configuration." >&2
-  echo "============================================================"
-  exec Hyprland
+    echo "  [!] WARNING: $MAIN_LUA not found." >&2
+    echo "      Falling back to Hyprland's default configuration." >&2
+    echo "============================================================"
+    exec Hyprland
 else
-  echo "  [+] Starting nested Hyprland with $MAIN_LUA..."
-  echo "============================================================"
-  exec start-hyprland -c "$MAIN_LUA"
+    echo "  [+] Starting nested Hyprland with $MAIN_LUA..."
+    echo "============================================================"
+    exec start-hyprland -c "$MAIN_LUA"
 fi

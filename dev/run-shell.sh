@@ -12,13 +12,13 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 shell_dir="$root/dots/.config/quickshell/cestolshell"
 
 if [[ ! -f "$shell_dir/shell.qml" ]]; then
-  echo "error: $shell_dir/shell.qml not found (run: dev/scaffold.sh --stage 0.1)" >&2
-  exit 1
+    echo "error: $shell_dir/shell.qml not found (run: dev/scaffold.sh --stage 0.1)" >&2
+    exit 1
 fi
 
 if [[ -z "${WAYLAND_DISPLAY:-}" ]]; then
-  echo "error: WAYLAND_DISPLAY not set (from SSH: source dev/hypr-env.sh)" >&2
-  exit 1
+    echo "error: WAYLAND_DISPLAY not set (from SSH: source dev/hypr-env.sh)" >&2
+    exit 1
 fi
 
 # Kill instances of both the repo path and the stowed config, they would clash

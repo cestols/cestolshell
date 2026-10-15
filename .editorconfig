@@ -8,7 +8,7 @@ trim_trailing_whitespace = true
 
 [*.{lua,json,md,yml,yaml,toml}]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 [*.qml]
 indent_style = space
@@ -16,4 +16,4 @@ indent_size = 4
 
 [*.sh]
 indent_style = space
-indent_size = 2
+indent_size = 4

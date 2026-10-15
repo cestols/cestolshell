@@ -15,13 +15,13 @@ once contributions open (and already apply to my own work).
 ## Code Style
 
 - **Everything in English**: code, comments, docs, commits.
-- **Formatting**: `.editorconfig` (UTF-8, LF, final newline). Indentation: Lua and QML 4 spaces,
-  shell 2, JSON/Markdown/TOML/YAML 2.
+- **Formatting**: `.editorconfig` (UTF-8, LF, final newline). Indentation: 4 spaces everywhere
+    (Lua, QML, shell, JSON/Markdown/TOML/YAML).
 - **Lua**: `stylua`, `luacheck` (globals: `hl` only)
 - **QML**: `qmlformat`, `qmllint`
 - **Shell**: `shellcheck`
 - **Commits**: Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`), with an
-  optional scope (`feat(hypr):`, `chore(dev):`). Small, atomic commits.
+    optional scope (`feat(hypr):`, `chore(dev):`). Small, atomic commits.
 
 ## File Headers
 

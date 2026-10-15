@@ -7,15 +7,15 @@ export XDG_RUNTIME_DIR
 # Latest Hyprland instance with socket
 sig=""
 for d in "$XDG_RUNTIME_DIR"/hypr/*/; do
-  if [ -S "${d}.socket.sock" ]; then
-    sig=$(basename "$d")
-    break
-  fi
+    if [ -S "${d}.socket.sock" ]; then
+        sig=$(basename "$d")
+        break
+    fi
 done
 
 if [ -z "$sig" ]; then
-  echo "No active Hyprland instance (are you logged in on the laptop?)" >&2
-  return 1
+    echo "No active Hyprland instance (are you logged in on the laptop?)" >&2
+    return 1
 fi
 export HYPRLAND_INSTANCE_SIGNATURE="$sig"
 
@@ -23,10 +23,10 @@ export HYPRLAND_INSTANCE_SIGNATURE="$sig"
 wl=""
 
 for f in "$XDG_RUNTIME_DIR"/wayland-[0-9]*; do
-    if [ -e "$f" ]; then
-        wl=$(basename "$f")
-        break
-    fi
+        if [ -e "$f" ]; then
+                wl=$(basename "$f")
+                break
+        fi
 done
 
 [ -n "$wl" ] && export WAYLAND_DISPLAY="$wl"

@@ -44,11 +44,11 @@ Instead of fork-and-modify, the codebase is being rewritten from scratch to ensu
 - **OS Services**: PipeWire, WirePlumber, NetworkManager, BlueZ, UPower, `brightnessctl`, `playerctl`.
 - **Dotfiles Management**: GNU Stow, Git.
 - **Quality Assurance**:
-  - QML: `qmllint`, `qmlformat`
-  - Lua: `lua-language-server`, `stylua`, `luacheck`
-  - Bash: `shellcheck`
-  - Hyprland config: `dev/test.sh` (`--verify-config` + `tests/hypr`)
-  - Hooks: `pre-commit` runs all of the above
+    - QML: `qmllint`, `qmlformat`
+    - Lua: `lua-language-server`, `stylua`, `luacheck`
+    - Bash: `shellcheck`
+    - Hyprland config: `dev/test.sh` (`--verify-config` + `tests/hypr`)
+    - Hooks: `pre-commit` runs all of the above
 
 ---
 
