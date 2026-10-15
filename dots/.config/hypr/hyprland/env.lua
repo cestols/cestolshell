@@ -2,8 +2,8 @@
 
 -- Cursor
 hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_SIZE", "20")
+hl.env("HYPRCURSOR_SIZE", "20")
 
 -- Wayland first, X11 as fallback
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")

@@ -41,7 +41,7 @@ hl.config({
 })
 
 -- Touchpad gestures
--- 0.6: 4-finger up/down toggles the shell overview
+-- 1.x: 4-finger up/down toggles the shell overview
 hl.gesture({ fingers = 3, direction = "swipe", action = "move" })
 hl.gesture({ fingers = 3, direction = "pinch", action = "fullscreen" })
 hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })

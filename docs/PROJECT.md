@@ -68,19 +68,19 @@ cestolshell/
 │       │   ├── hyprlock.conf            # Lock screen (hyprlang)
 │       │   └── scripts/                 # Hyprland helper scripts
 │       ├── matugen/                     # Matugen config and templates (planned, 0.5)
-│       └── quickshell/cestolshell/      # Quickshell bundle (planned, 0.1+)
+│       └── quickshell/cestolshell/      # Quickshell bundle (0.1+)
 │           ├── shell.qml
 │           ├── services/                # Audio, Network, Battery, HyprlandData, etc.
 │           ├── scripts/                 # Wallpaper, theming, palette sync
 │           └── modules/
 │               ├── common/              # Appearance, Config, Directories, M3 widgets
-│               └── bar/ sidebarRight/ overview/ ...
-├── assets/                              # Default fonts and wallpapers (planned, 0.2)
+│               └── bar/ sidebarRight/ sidebarLeft/ ...
+├── assets/                              # Default fonts and wallpapers (planned, 0.5)
 ├── dev/                                 # Dev scripts: scaffold, test, run-nested, run-shell, checkdeps
-├── docs/                                # PROJECT.md, VERSIONING.md, NOTICE.md, PARITY.md
+├── docs/                                # PROJECT.md, ROADMAP.md, VERSIONING.md, NOTICE.md, PARITY.md
 ├── sdata/dist-arch/                     # Installer package lists (core, system, theming, aur, dev)
 ├── tests/hypr/                          # Lua checks for the Hyprland config
-├── setup                                # Entrypoint script: install, uninstall, checkdeps (planned, 0.7)
+├── setup                                # Entrypoint script: install, uninstall, checkdeps (planned, 0.8)
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
@@ -94,24 +94,31 @@ cestolshell/
 Keybindings are divided into three tiers to guarantee safety and independence:
 
 1. **Tier 1 (Essential)**: Direct interactions with Hyprland and system utilities (`kitty`, fallback launcher `rofi`, window management, workspaces, volume/brightness hardware keys). **Does not rely on Quickshell**.
-2. **Tier 2 (Shell Interactions)**: Calls Quickshell modules via IPC (launcher, overview, sidebars, OSDs). Not a stage of its own: each bind lands in the same stage as the shell feature it controls, starting from 0.1.
+2. **Tier 2 (Shell Interactions)**: Calls Quickshell modules via IPC (sidebars, launcher, OSDs). Not a stage of its own: each bind lands in the same stage as the shell feature it controls, starting from 0.1.
 3. **Tier 3 (Utilities & Extras)**: Workgroups, scratchpads, region capture tools, emoji pickers, submaps.
 
 ---
 
 ## 7. Development Roadmap
 
-### MVP (Target 1.0)
-* **0.0**: Standalone Hyprland Lua configuration (Tier 1 binds, `hyprlock`, fallback launcher).
-* **0.1**: Core Quickshell foundation (`shell.qml`, `Config`, `Appearance`, Hyprland service, basic IPC).
-* **0.2**: Material Design system tokens and primitive widgets (Button, Toggle, Slider, Card).
-* **0.3**: System services integration and functional top bar.
-* **0.4**: Notifications server and right sidebar (quick toggles, audio mixer, calendar).
-* **0.5**: Dynamic Material You color scheme generation from wallpaper.
-* **0.6**: Application launcher, workspace overview, OSDs, and session screen.
-* **0.7**: Tier 3 keybindings and CLI installer (`setup`).
-* **1.0**: Stabilization and daily-driver validation.
+The roadmap is sized for learning Qt/QML while building the shell:
 
-### Post 1.0 (Future Scope)
-* **1.x**: Complete feature parity with `end-4` (Settings GUI, Left sidebar / AI integrations, Live overview previews).
+- **Every stage ends with something visible and usable.** Abstractions (design tokens, user config, shared widgets) are not designed up front: they are extracted in 0.5, once the bar and the sidebars show what actually repeats.
+- **Small steps.** Each stage is split into versions (`0.1.0`, `0.1.1`, ...), each a short visible step tagged when it works (`docs/VERSIONING.md`). Every version is described in [`docs/ROADMAP.md`](ROADMAP.md).
+- **Getting the structure wrong is fine.** Refactoring has its own stage.
+
+### MVP (Target 1.0.0)
+* **0.0.x**: Standalone Hyprland Lua configuration (Tier 1 binds, `hyprlock`, fallback launcher).
+* **0.1.x**: Simple top bar: clock and workspaces. The shell starts with the session and reloads over IPC; a minimal `Appearance` singleton holds the few colors and sizes the bar uses.
+* **0.2.x**: Bar status: volume, battery, network, system tray (first services).
+* **0.3.x**: Right sidebar: quick toggles (Wi-Fi, Bluetooth, do not disturb) and a volume slider, opened with a Tier 2 bind.
+* **0.4.x**: Left sidebar: notifications (notification server, popups, history).
+* **0.5.x**: Refactoring and dynamic colors: M3 tokens in `Appearance`, shared widgets extracted from repeated code, `Config` (JSON user options), Material You colors from the wallpaper (matugen) for the shell, Hyprland and `hyprlock`.
+* **0.6.x**: Application launcher (replaces the fallback `rofi`).
+* **0.7.x**: OSDs (volume/brightness) and session screen.
+* **0.8.x**: Tier 3 keybindings and CLI installer (`setup`).
+* **1.0.0**: Stabilization and daily-driver validation.
+
+### Post 1.0.0 (Future Scope)
+* **1.x**: Complete feature parity with `end-4` (Settings GUI, workspace overview with live previews, AI integrations).
 * **2.x**: Modular styles engine, desktop widgets, customizable bar layouts.

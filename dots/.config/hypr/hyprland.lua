@@ -12,7 +12,7 @@ require("hyprland.rules")
 -- Keybinds
 require("hyprland.keybinds.essential")
 require("hyprland.keybinds.shell")
--- 0.7: require("hyprland.keybinds.extras")
+-- require("hyprland.keybinds.extras")
 
 -- Custom modules
 -- TODO: support custom configs

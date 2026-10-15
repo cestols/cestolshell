@@ -74,4 +74,4 @@ If copying from `end-4/dots-hyprland`, `snowarch/iNiR` or any other project:
 
 ## Versioning
 
-See [VERSIONING.md](docs/VERSIONING.md).
+See [VERSIONING.md](docs/VERSIONING.md); every planned version is listed in [ROADMAP.md](docs/ROADMAP.md).

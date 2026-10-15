@@ -7,13 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/) as descri
 
 ## [Unreleased]
 
-## [0.0] - 2026-10-15
-
-Stage 0.0 complete: standalone Hyprland config (Lua modules, level 1 keybinds,
-fallback launcher, `hypridle` and `hyprlock`), usable without the shell.
-Includes 0.0.0 and 0.0.1.
-
 ## [0.0.1] - 2026-10-15
+
+Stage 0.0.x complete: standalone Hyprland config (Lua modules, level 1 keybinds,
+fallback launcher, `hypridle` and `hyprlock`), usable without the shell.
 
 ### Added
 

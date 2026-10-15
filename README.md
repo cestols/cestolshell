@@ -8,7 +8,7 @@ A custom, modern desktop environment built for **Hyprland** using **Quickshell**
 
 > [!WARNING]
 > **Early development (stage 0.1).** The standalone Hyprland config (Lua, plus
-> `hyprlock`/`hypridle`, released in `v0.0`) is complete. The Quickshell shell is a
+> `hyprlock`/`hypridle`, released in `v0.0.1`) is complete. The Quickshell shell is a
 > skeleton for now: Hyprland starts it with the session and reloads it over IPC, but it
 > shows nothing yet. Not usable as a daily driver.
 
@@ -48,7 +48,7 @@ Planned (see the roadmap):
 * 🎨 **Material Design 3 System:** Single source of truth for colors, corner radii, elevation, spacing, and motion curves via a centralized `Appearance` singleton.
 * ⚡ **Decoupled Architecture:** IPC-first communication between Hyprland and Quickshell (`qs -c cestolshell ipc call`).
 * 🔒 **Layered Keybindings:** 3-level keybinding structure ensuring the system remains controllable even if the shell reloads or crashes.
-* 🧩 **Modular Shell Layout:** Lazy-loaded panels (Launcher, Sidebar, OSD, Notifications, Overview) to maintain low resource usage.
+* 🧩 **Modular Shell Layout:** Lazy-loaded panels (Sidebars, Notifications, Launcher, OSD) to maintain low resource usage.
 
 ---
 
@@ -63,20 +63,20 @@ cestolshell/
 │       ├── hypr/
 │       │   ├── hyprland.lua             # Entry point: loads hyprland/* in order
 │       │   ├── hyprland/                # Hyprland modules (monitors, env, execs, rules, keybinds, ...)
-│       │   │   ├── keybinds/            # essential.lua (level 1); shell.lua (0.1+), extras.lua (planned, 0.7)
+│       │   │   ├── keybinds/            # essential.lua (level 1); shell.lua (0.1+), extras.lua (planned, 0.8)
 │       │   │   ├── lib/                 # Lua helper functions
 │       │   │   └── qs/                  # Shell integration: init.lua + ipc.lua helper (0.1)
 │       │   ├── hypridle.conf            # Idle timeouts: dim, lock, screen off, suspend
 │       │   ├── hyprlock.conf            # Lock screen
 │       │   └── scripts/                 # Hyprland helper scripts
 │       ├── matugen/                     # Palette config and templates (planned, 0.5)
-│       └── quickshell/cestolshell/      # Quickshell package root (planned, 0.1+)
+│       └── quickshell/cestolshell/      # Quickshell package root (0.1+)
 ├── dev/                                 # Development helpers (scaffold, tests, nested Hyprland)
-├── docs/                                # Project, versioning, notice and parity docs
+├── docs/                                # Project, roadmap, versioning, notice and parity docs
 ├── sdata/dist-arch/                     # Package lists: core, system, theming, aur, dev
 ├── tests/hypr/                          # Lua checks for the Hyprland config
-├── assets/                              # Default wallpapers and fonts (planned, 0.2)
-├── setup                                # Installer: install, uninstall, checkdeps (planned, 0.7)
+├── assets/                              # Default wallpapers and fonts (planned, 0.5)
+├── setup                                # Installer: install, uninstall, checkdeps (planned, 0.8)
 ├── CHANGELOG.md
 └── README.md
 ```
@@ -85,7 +85,7 @@ cestolshell/
 
 ## 📦 Installation (manual)
 
-The `setup` installer arrives in stage 0.7. Until then:
+The `setup` installer arrives in stage 0.8. Until then:
 
 ```bash
 dev/checkdeps.sh core system theming aur   # list missing packages
@@ -126,7 +126,7 @@ Development packages are listed in `sdata/dist-arch/dev.txt`. Conventions are de
 Keybindings in `cestolshell` are split into three levels:
 
 1. **Level 1 (Essential):** System-critical binds mapped directly in Hyprland (terminal, fallback launcher, window management, workspaces, audio/brightness keys, session exit). Works independently of the shell.
-2. **Level 2 (Shell Integration):** Binds that trigger Quickshell modules over IPC (launcher, overview, sidebars, OSDs), added together with each shell feature. Never global shortcuts.
+2. **Level 2 (Shell Integration):** Binds that trigger Quickshell modules over IPC (sidebars, launcher, OSDs), added together with each shell feature. Never global shortcuts.
 3. **Level 3 (Comfort & Extra):** Advanced workspace controls, scratchpads, submaps, screen zoom, and utility modes.
 
 ### Level 1 binds
@@ -169,17 +169,18 @@ Defined in `dots/.config/hypr/hyprland/keybinds/shell.lua`, through the `hyprlan
 
 ## 🗺️ Development Roadmap
 
-Full details in [docs/PROJECT.md](docs/PROJECT.md#7-development-roadmap).
+Each stage is split into small versions (`0.1.0`, `0.1.1`, ...), described one by one in [docs/ROADMAP.md](docs/ROADMAP.md); the reasons are in [docs/PROJECT.md](docs/PROJECT.md#7-development-roadmap).
 
-- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(released in `v0.0`: config modules and level 1 keybinds in `v0.0.0`, `hyprlock` and `hypridle` in `v0.0.1`)*
-- [ ] **0.1 - Quickshell Core:** `shell.qml`, `Config`, `Appearance`, Hyprland service, and basic IPC.
-- [ ] **0.2 - Design System:** M3 design tokens and primitive widgets (Button, Toggle, Slider, Card).
-- [ ] **0.3 - Bar & Services:** System services and a functional top bar.
-- [ ] **0.4 - Notifications & Control Center:** Notification server and right sidebar.
-- [ ] **0.5 - Dynamic Theming:** Material You colors generated from the wallpaper via `matugen`.
-- [ ] **0.6 - Launcher & Session:** App launcher, overview, OSDs, and session screen.
-- [ ] **0.7 - Extras & Installer:** Level 3 keybinds and the `setup` CLI installer.
-- [ ] **1.0 - Stable:** Stabilization and daily-driver validation.
+- [x] **0.0.x - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(config modules and level 1 keybinds in `v0.0.0`, tests, `hyprlock` and `hypridle` in `v0.0.1`)*
+- [ ] **0.1.x - Simple Bar:** Top bar with clock and workspaces; the shell starts with the session and reloads over IPC.
+- [ ] **0.2.x - Bar Status:** Volume, battery, network, and system tray.
+- [ ] **0.3.x - Right Sidebar:** Quick toggles (Wi-Fi, Bluetooth, do not disturb) and volume slider.
+- [ ] **0.4.x - Left Sidebar:** Notifications (server, popups, history).
+- [ ] **0.5.x - Refactoring & Dynamic Theming:** M3 tokens, shared widgets, user config, Material You colors via `matugen`.
+- [ ] **0.6.x - Launcher:** App launcher replacing `rofi`.
+- [ ] **0.7.x - OSDs & Session:** Volume/brightness OSDs and session screen.
+- [ ] **0.8.x - Extras & Installer:** Level 3 keybinds and the `setup` CLI installer.
+- [ ] **1.0.0 - Stable:** Stabilization and daily-driver validation.
 
 ---
 

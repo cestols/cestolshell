@@ -1,6 +1,6 @@
 # System services and tools called by Hyprland binds and the shell.
 
-# --- Audio (0.0.5 / 0.3) ---
+# --- Audio (0.0.5 / 0.2) ---
 pipewire
 pipewire-pulse
 wireplumber                     # provides wpctl
@@ -9,7 +9,7 @@ wireplumber                     # provides wpctl
 brightnessctl                   # brightness keys, OSD
 playerctl                       # media keys, MPRIS
 
-# --- Services for the shell (0.3) ---
+# --- Services for the shell (0.2 / 0.3) ---
 networkmanager                  # network service
 bluez                           # Bluetooth service
 bluez-utils
