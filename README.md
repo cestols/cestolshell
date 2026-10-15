@@ -7,9 +7,10 @@ A custom, modern desktop environment built for **Hyprland** using **Quickshell**
 ![Quickshell: Qt6](https://img.shields.io/badge/Shell-Quickshell--Qt6-green.svg)
 
 > [!WARNING]
-> **Early development (stage 0.1).** Only the standalone Hyprland config (Lua, plus
-> `hyprlock`/`hypridle`, released in `v0.0`) exists so far. The Quickshell shell is next.
-> Not usable as a daily driver.
+> **Early development (stage 0.1).** The standalone Hyprland config (Lua, plus
+> `hyprlock`/`hypridle`, released in `v0.0`) is complete. The Quickshell shell is a
+> skeleton for now: Hyprland starts it with the session and reloads it over IPC, but it
+> shows nothing yet. Not usable as a daily driver.
 
 ---
 
@@ -99,10 +100,22 @@ Try the config in a nested session first (see below).
 
 ```bash
 dev/run-nested.sh            # nested Hyprland in a sandboxed XDG env linked to dots/.config
+dev/run-shell.sh -v          # run the shell from the repo (hot reload on save, verbose logs)
 dev/test.sh                  # Hyprland --verify-config + Lua checks in tests/hypr
 pre-commit run --all-files   # stylua, luacheck, shellcheck, qmllint, dev/test.sh
 dev/scaffold.sh --stage 0.1  # create the structure of a stage (never overwrites files)
 ```
+
+To call the shell over IPC from another terminal, load the session env first: `qs` only
+sees instances running on the caller's Wayland display.
+
+```bash
+source dev/hypr-env.sh
+qs -c cestolshell ipc call shell ping   # -> pong
+```
+
+For QML completion in the editor, create an empty `.qmlls.ini` next to `shell.qml`:
+Quickshell replaces it with the import paths for `qmlls`. It is ignored by git and stow.
 
 Development packages are listed in `sdata/dist-arch/dev.txt`. Conventions are described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -118,7 +131,7 @@ Keybindings in `cestolshell` are split into three levels:
 
 ### Level 1 binds
 
-Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs come from `variables.lua`.
+Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs and the `SUPER` modifier come from `variables.lua`.
 
 | Keys | Action |
 | :--- | :--- |
@@ -143,6 +156,14 @@ Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs come fr
 | `SUPER + SHIFT + L` | Suspend |
 | `CTRL + ALT + Delete` | Exit Hyprland |
 | Volume, brightness, media keys | `wpctl`, `brightnessctl`, `playerctl` (also on the lock screen) |
+
+### Level 2 binds
+
+Defined in `dots/.config/hypr/hyprland/keybinds/shell.lua`, through the `hyprland.qs` IPC helper. The list grows with each shell stage.
+
+| Keys | Action |
+| :--- | :--- |
+| `SUPER + CTRL + R` | Reload the shell (`shell.reload`) |
 
 ---
 

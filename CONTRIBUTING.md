@@ -43,7 +43,12 @@ pre-commit install
 pre-commit run --all-files   # stylua, luacheck, shellcheck, qmllint, dev/test.sh
 ```
 
-Then try the change in a nested session with `dev/run-nested.sh`.
+Then try the change in a nested session with `dev/run-nested.sh`, and run the shell
+from the repo with `dev/run-shell.sh -v`. Before calling it with `qs ... ipc call` from
+another terminal, `source dev/hypr-env.sh`: `qs` only sees instances on the caller's display.
+
+`dev/test.sh` also checks that every level 2 bind calls a `target.function` declared
+by an `IpcHandler` in the shell QML.
 
 ## Architecture Rules
 

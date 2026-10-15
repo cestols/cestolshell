@@ -32,7 +32,7 @@ Instead of fork-and-modify, the codebase is being rewritten from scratch to ensu
 - **Shell Architecture**: Inspired by `iNiR`. Separated into `modules/common/` (appearance, tokens, shared widgets) and `services/`.
 - **Window Manager**: Hyprland (tested with v0.56.2), configured using native **Lua** scripts (`hyprland.lua`).
 - **IPC First**: The compositor communicates with Quickshell strictly via IPC commands (`qs -c cestolshell ipc call <target> <function>`, wrapped by the `hyprland.qs` Lua module: `qs/init.lua` exposes `ipc.lua` and future helpers) without relying on global shortcuts.
-- **Testing**: `dev/test.sh` runs `Hyprland --verify-config`, then Lua checks against a strict mock of the `hl` API generated from Hyprland's stubs (`/usr/share/hypr/stubs/hl.meta.lua`), so calls to functions the installed Hyprland does not provide fail.
+- **Testing**: `dev/test.sh` runs `Hyprland --verify-config`, then Lua checks against a strict mock of the `hl` API generated from Hyprland's stubs (`/usr/share/hypr/stubs/hl.meta.lua`), so calls to functions the installed Hyprland does not provide fail. Level 2 binds are also checked against the `IpcHandler` functions declared in the shell QML.
 - **Theme Generation**: **Matugen** generates M3 color roles in a JSON payload, consumed by the shell's `Appearance` singleton.
 
 ---
