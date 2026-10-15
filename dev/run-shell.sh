@@ -2,13 +2,19 @@
 # dev/run-shell.sh - Runs the Quickshell config straight from the repo (hot reload on save).
 # Usage: dev/run-shell.sh [qs options...]   (e.g. -v for verbose logs)
 #
-# Replaces a running instance of the same config. From SSH, `source dev/hypr-env.sh` first.
-
-# shellcheck disable=SC1091
-source dev/hypr-env.sh
-set -euo pipefail
+# Replaces a running instance of the same config. Loads the Hyprland/Wayland env itself
+# (dev/hypr-env.sh), so it also works from SSH.
+# IPC calls from another terminal need the same env: qs only finds instances on the
+# caller's Wayland display, so run `source dev/hypr-env.sh` there before `qs ... ipc call`.
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# Before set -e: hypr-env.sh returns non-zero when it finds no Hyprland or Wayland
+# socket, and the checks below report that with a clear message.
+# shellcheck disable=SC1091
+source "$root/dev/hypr-env.sh"
+set -euo pipefail
+
 shell_dir="$root/dots/.config/quickshell/cestolshell"
 
 if [[ ! -f "$shell_dir/shell.qml" ]]; then

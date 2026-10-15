@@ -23,10 +23,10 @@ export HYPRLAND_INSTANCE_SIGNATURE="$sig"
 wl=""
 
 for f in "$XDG_RUNTIME_DIR"/wayland-[0-9]*; do
-        if [ -e "$f" ]; then
-                wl=$(basename "$f")
-                break
-        fi
+    if [ -e "$f" ]; then
+        wl=$(basename "$f")
+        break
+    fi
 done
 
 [ -n "$wl" ] && export WAYLAND_DISPLAY="$wl"
