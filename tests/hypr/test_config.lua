@@ -195,6 +195,28 @@ test("shell binds use IPC, never global shortcuts", function()
     expect_none(problems)
 end)
 
+-- Not required by hyprland.lua until keybinds.shell (0.3): load it here.
+-- Expected API: command(target, fn, ...) returns the quoted command line,
+-- call(target, fn, ...) returns hl.dsp.exec_cmd(command(...)). Skipped until qs/ipc.lua exists.
+local ipc_file = io.open(root .. "/hyprland/qs/ipc.lua")
+if not ipc_file then
+    print("skip  qs IPC helper (hyprland/qs/ipc.lua not written yet)")
+else
+    ipc_file:close()
+    test("qs IPC helper builds quoted qs ipc call commands", function()
+        local ipc = require("hyprland.qs.ipc")
+        local expected = [[qs -c 'cestolshell' ipc call 'shell' 'ping' 'it'\''s' '2']]
+        local got = ipc.command("shell", "ping", "it's", 2)
+        assert(got == expected, ("command: expected %q, got %q"):format(expected, got))
+
+        local before = #mock.find(log, "hl.dsp.exec_cmd")
+        ipc.call("shell", "ping")
+        local calls = mock.find(log, "hl.dsp.exec_cmd")
+        assert(#calls == before + 1, "call() must build exactly one hl.dsp.exec_cmd")
+        assert(calls[#calls].args[1] == ipc.command("shell", "ping"), "call() must run command()")
+    end)
+end
+
 -- ######## Summary ########
 
 print(("\n%d passed, %d failed"):format(passed, #failures))
