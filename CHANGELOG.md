@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/) as descri
 
 ## [Unreleased]
 
+## [0.0.1] - 2026-10-15
+
 ### Added
 
 - Test suite: `dev/test.sh` runs `Hyprland --verify-config` and the Lua checks in `tests/hypr/`

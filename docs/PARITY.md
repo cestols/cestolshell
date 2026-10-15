@@ -18,8 +18,8 @@ Legend: ✅ Done · 🟠 Partial · 🟡 Planned · 🔴 Future (post 1.0)
 | Layer rules | 🟠 Partial | Fallback launcher and tools done; `quickshell:*` namespaces from 0.1 |
 | Tier 1 keybindings | ✅ Done | `keybinds/essential.lua`: apps, windows, workspaces 1-10, session, hardware keys |
 | Fallback launcher | ✅ Done | `rofi` on `SUPER + R`, layer rules in `rules.lua`; replaced by the shell in 0.6 |
-| hyprlock config | 🟡 Planned | In `dots/.config/hypr/hyprlock/` |
-| hypridle config | 🟡 Planned | `hypridle` already started by `execs.lua`, config file missing (needed by the lock bind) |
+| hyprlock config | ✅ Done | `hyprlock.conf`: blurred snapshot, clock, date, password field; static M3 palette, matugen colors in 0.5 |
+| hypridle config | ✅ Done | `hypridle.conf`: dim, lock, DPMS off, suspend; lock before sleep |
 | Custom config override | 🟡 Planned | `TODO` in `hyprland.lua` (user overrides loaded with `pcall(require)`) |
 | Tier 2 keybindings (IPC) | 🟡 Planned | 0.3, through `hyprland/qs/ipc.lua` (0.1) |
 | Tier 3 keybindings | 🟡 Planned | 0.7: workspaces, scratchpads, submaps, zoom |

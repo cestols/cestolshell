@@ -150,7 +150,7 @@ Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs come fr
 
 Full details in [docs/PROJECT.md](docs/PROJECT.md#7-development-roadmap).
 
-- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(in progress: config modules and level 1 keybinds released in `v0.0.0`; `hyprlock` and `hypridle` configs to be verified)*
+- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(in progress: config modules and level 1 keybinds released in `v0.0.0`, `hyprlock` and `hypridle` configs in `v0.0.1`)*
 - [ ] **0.1 - Quickshell Core:** `shell.qml`, `Config`, `Appearance`, Hyprland service, and basic IPC.
 - [ ] **0.2 - Design System:** M3 design tokens and primitive widgets (Button, Toggle, Slider, Card).
 - [ ] **0.3 - Bar & Services:** System services and a functional top bar.
