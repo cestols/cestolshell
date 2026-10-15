@@ -62,9 +62,9 @@ cestolshell/
 │       ├── hypr/
 │       │   ├── hyprland.lua             # Entry point: loads hyprland/* in order
 │       │   ├── hyprland/                # Hyprland modules (monitors, env, execs, rules, keybinds, ...)
-│       │   │   ├── keybinds/            # essential.lua (level 1); shell.lua, extras.lua (planned)
+│       │   │   ├── keybinds/            # essential.lua (level 1); shell.lua (0.1+), extras.lua (planned, 0.7)
 │       │   │   ├── lib/                 # Lua helper functions
-│       │   │   └── qs/                  # IPC helper towards Quickshell (planned, 0.1)
+│       │   │   └── qs/                  # Shell integration: init.lua + ipc.lua helper (0.1)
 │       │   ├── hypridle.conf            # Idle timeouts: dim, lock, screen off, suspend
 │       │   ├── hyprlock.conf            # Lock screen
 │       │   └── scripts/                 # Hyprland helper scripts
@@ -113,7 +113,7 @@ Development packages are listed in `sdata/dist-arch/dev.txt`. Conventions are de
 Keybindings in `cestolshell` are split into three levels:
 
 1. **Level 1 (Essential):** System-critical binds mapped directly in Hyprland (terminal, fallback launcher, window management, workspaces, audio/brightness keys, session exit). Works independently of the shell.
-2. **Level 2 (Shell Integration):** Binds that trigger Quickshell modules over IPC (launcher, overview, sidebars, OSDs). Never global shortcuts.
+2. **Level 2 (Shell Integration):** Binds that trigger Quickshell modules over IPC (launcher, overview, sidebars, OSDs), added together with each shell feature. Never global shortcuts.
 3. **Level 3 (Comfort & Extra):** Advanced workspace controls, scratchpads, submaps, screen zoom, and utility modes.
 
 ### Level 1 binds

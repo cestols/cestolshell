@@ -53,7 +53,7 @@ Then try the change in a nested session with `dev/run-nested.sh`.
 4. **IPC first** → Hyprland ↔ Quickshell via `qs -c cestolshell ipc call`
 5. **Keybinding tiers**:
    - Tier 1: Hyprland only (works without shell)
-   - Tier 2: Shell IPC calls
+   - Tier 2: Shell IPC calls through `hyprland.qs`, added with the shell feature they control
    - Tier 3: Utilities/extras
 6. **Dependencies**: add a package to `sdata/dist-arch/*.txt` in the same commit that starts using it
 

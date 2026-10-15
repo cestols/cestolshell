@@ -21,7 +21,7 @@ Legend: ✅ Done · 🟠 Partial · 🟡 Planned · 🔴 Future (post 1.0)
 | hyprlock config | ✅ Done | `hyprlock.conf`: blurred snapshot, clock, date, password field; static M3 palette, matugen colors in 0.5 |
 | hypridle config | ✅ Done | `hypridle.conf`: dim, lock, DPMS off, suspend; lock before sleep |
 | Custom config override | 🟡 Planned | `TODO` in `hyprland.lua` (user overrides loaded with `pcall(require)`) |
-| Tier 2 keybindings (IPC) | 🟡 Planned | 0.3, through `hyprland/qs/ipc.lua` (0.1) |
+| Tier 2 keybindings (IPC) | 🟡 Planned | 0.1+, through `hyprland/qs/` (0.1) |
 | Tier 3 keybindings | 🟡 Planned | 0.7: workspaces, scratchpads, submaps, zoom |
 | Installer (`setup`) | 🟡 Planned | 0.7; `dev/checkdeps.sh` covers dependency checks meanwhile |
 | Settings GUI | 🔴 Future | 1.x |

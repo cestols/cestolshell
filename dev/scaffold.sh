@@ -191,10 +191,10 @@ require("hyprland.rules")
 
 -- Keybinds
 require("hyprland.keybinds.essential")
--- 0.3: require("hyprland.keybinds.shell")
+-- 0.1: require("hyprland.keybinds.shell")
 -- 0.7: require("hyprland.keybinds.extras")
 
--- Shell IPCs
+-- Shell libs
 -- 0.1: require("hyprland.qs")
 
 EOF
@@ -260,6 +260,10 @@ EOF
   # Named HyprlandData to avoid shadowing the Hyprland singleton of Quickshell.Hyprland
   qml_singleton services/HyprlandData.qml "Hyprland state not exposed by Quickshell.Hyprland (hyprctl -j)"
 
+  # Level 2 binds are added together with the shell feature they control
+  lua_stub hyprland/keybinds/shell.lua "level 2: binds towards the shell via IPC (uses hyprland.qs)"
+  lua_stub hyprland/qs/init.lua "shell integration: loads and exposes the qs submodules (ipc, ...)"
+
   put "$HL/qs/ipc.lua" <<'EOF'
 -- hyprland/qs/ipc.lua: IPC helper towards Quickshell.
 -- All binds towards the shell go through here (qs ipc call), never global shortcuts.
@@ -286,7 +290,6 @@ stage_0_2() {
 # 0.3: system services integration and functional top bar.
 stage_0_3() {
   keep "$Q/modules/bar"
-  lua_stub hyprland/keybinds/shell.lua "level 2: binds towards the shell via IPC (uses hyprland.qs.ipc)"
 }
 
 # 0.4: notifications server and right sidebar.
