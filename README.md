@@ -7,8 +7,8 @@ A custom, modern desktop environment built for **Hyprland** using **Quickshell**
 ![Quickshell: Qt6](https://img.shields.io/badge/Shell-Quickshell--Qt6-green.svg)
 
 > [!WARNING]
-> **Early development (stage 0.0).** Only the standalone Hyprland config (Lua, plus
-> `hyprlock`/`hypridle`) exists so far. The Quickshell shell starts at stage 0.1.
+> **Early development (stage 0.1).** Only the standalone Hyprland config (Lua, plus
+> `hyprlock`/`hypridle`, released in `v0.0`) exists so far. The Quickshell shell is next.
 > Not usable as a daily driver.
 
 ---
@@ -150,7 +150,7 @@ Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs come fr
 
 Full details in [docs/PROJECT.md](docs/PROJECT.md#7-development-roadmap).
 
-- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(in progress: config modules and level 1 keybinds released in `v0.0.0`, `hyprlock` and `hypridle` configs in `v0.0.1`)*
+- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(released in `v0.0`: config modules and level 1 keybinds in `v0.0.0`, `hyprlock` and `hypridle` in `v0.0.1`)*
 - [ ] **0.1 - Quickshell Core:** `shell.qml`, `Config`, `Appearance`, Hyprland service, and basic IPC.
 - [ ] **0.2 - Design System:** M3 design tokens and primitive widgets (Button, Toggle, Slider, Card).
 - [ ] **0.3 - Bar & Services:** System services and a functional top bar.
