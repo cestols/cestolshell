@@ -4,6 +4,9 @@ local vars = {
     -- Quickshell config name (folder inside ~/.config/quickshell)
     qs_config = "cestolshell",
 
+    -- Keys
+    mod = "SUPER",
+
     -- Apps
     terminal = "kitty -1",
     launcher = "rofi -show drun", -- fallback launcher, replaced by the shell in 0.6
