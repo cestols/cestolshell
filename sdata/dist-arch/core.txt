@@ -4,7 +4,7 @@
 
 # --- Compositor (0.0) ---
 hyprland                        # tested with 0.56.2, Lua config
-hyprlock                        # lock screen until the shell has its own (0.0.6)
+hyprlock                        # lock screen until the shell has its own (0.6)
 hypridle                        # idle lock / dpms / suspend, runs hyprlock
 xdg-desktop-portal-hyprland     # screen sharing, file dialogs
 xdg-desktop-portal-gtk

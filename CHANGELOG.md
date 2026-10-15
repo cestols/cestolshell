@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/) as descri
   (strict `hl` mock generated from Hyprland's stubs, callback bodies, duplicate rules and binds,
   level 1 binds never calling the shell, no global variables besides `hl`).
 - `hypr-tests` pre-commit hook.
+- `hypridle.conf`: dim after 2.5 min, lock after 5, screen off after 5.5, suspend after 30;
+  locks before sleep. `SUPER + L` now locks the session.
+- `hyprlock.conf`: blurred desktop snapshot, clock, date, password field, user and keyboard
+  layout, with the static M3 palette of `appearance.lua`.
 
 ## [0.0.0] - 2026-10-14
 

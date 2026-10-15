@@ -7,8 +7,8 @@ A custom, modern desktop environment built for **Hyprland** using **Quickshell**
 ![Quickshell: Qt6](https://img.shields.io/badge/Shell-Quickshell--Qt6-green.svg)
 
 > [!WARNING]
-> **Early development (stage 0.0).** Only the standalone Hyprland Lua config exists so far,
-> and the lock screen is not configured yet. The Quickshell shell starts at stage 0.1.
+> **Early development (stage 0.0).** Only the standalone Hyprland config (Lua, plus
+> `hyprlock`/`hypridle`) exists so far. The Quickshell shell starts at stage 0.1.
 > Not usable as a daily driver.
 
 ---
@@ -65,7 +65,8 @@ cestolshell/
 │       │   │   ├── keybinds/            # essential.lua (level 1); shell.lua, extras.lua (planned)
 │       │   │   ├── lib/                 # Lua helper functions
 │       │   │   └── qs/                  # IPC helper towards Quickshell (planned, 0.1)
-│       │   ├── hyprlock/                # Hyprlock config (planned, 0.0)
+│       │   ├── hypridle.conf            # Idle timeouts: dim, lock, screen off, suspend
+│       │   ├── hyprlock.conf            # Lock screen
 │       │   └── scripts/                 # Hyprland helper scripts
 │       ├── matugen/                     # Palette config and templates (planned, 0.5)
 │       └── quickshell/cestolshell/      # Quickshell package root (planned, 0.1+)
@@ -90,7 +91,7 @@ dev/checkdeps.sh core system theming aur   # list missing packages
 stow -d . -t ~ --no-folding dots           # link dots/ into $HOME (defaults also in .stowrc)
 ```
 
-Try the config in a nested session first (see below). The lock bind does nothing until `hyprlock`/`hypridle` are configured.
+Try the config in a nested session first (see below).
 
 ---
 
@@ -138,7 +139,7 @@ Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs come fr
 | `SUPER + 1..0` | Go to workspace 1-10 |
 | `SUPER + SHIFT + 1..0` | Move window to workspace 1-10 |
 | `SUPER + Scroll` | Previous / next workspace |
-| `SUPER + L` | Lock (needs `hypridle` + `hyprlock` config) |
+| `SUPER + L` | Lock (`loginctl lock-session` -> `hypridle` -> `hyprlock`) |
 | `SUPER + SHIFT + L` | Suspend |
 | `CTRL + ALT + Delete` | Exit Hyprland |
 | Volume, brightness, media keys | `wpctl`, `brightnessctl`, `playerctl` (also on the lock screen) |
@@ -149,7 +150,7 @@ Defined in `dots/.config/hypr/hyprland/keybinds/essential.lua`; programs come fr
 
 Full details in [docs/PROJECT.md](docs/PROJECT.md#7-development-roadmap).
 
-- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(in progress: config modules and level 1 keybinds released in `v0.0.0`; `hyprlock` and `hypridle` configs missing)*
+- [x] **0.0 - Standalone Hyprland:** Lua configuration, level 1 keybinds, `hyprlock`, and fallback launcher. *(in progress: config modules and level 1 keybinds released in `v0.0.0`; `hyprlock` and `hypridle` configs to be verified)*
 - [ ] **0.1 - Quickshell Core:** `shell.qml`, `Config`, `Appearance`, Hyprland service, and basic IPC.
 - [ ] **0.2 - Design System:** M3 design tokens and primitive widgets (Button, Toggle, Slider, Card).
 - [ ] **0.3 - Bar & Services:** System services and a functional top bar.

@@ -64,7 +64,8 @@ cestolshell/
 │       │   ├── hyprland.lua             # Entry point (loads hyprland/* in order)
 │       │   ├── hyprland/                # monitors, env, execs, appearance, animations,
 │       │   │                            # input, rules, variables, keybinds/, lib/, qs/
-│       │   ├── hyprlock/                # Lock screen config
+│       │   ├── hypridle.conf            # Idle timeouts (hyprlang)
+│       │   ├── hyprlock.conf            # Lock screen (hyprlang)
 │       │   └── scripts/                 # Hyprland helper scripts
 │       ├── matugen/                     # Matugen config and templates (planned, 0.5)
 │       └── quickshell/cestolshell/      # Quickshell bundle (planned, 0.1+)
