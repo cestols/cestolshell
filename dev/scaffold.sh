@@ -194,9 +194,6 @@ require("hyprland.keybinds.essential")
 -- 0.1: require("hyprland.keybinds.shell")
 -- 0.7: require("hyprland.keybinds.extras")
 
--- Shell libs
--- 0.1: require("hyprland.qs")
-
 EOF
     # Hyprland config files
     lua_stub hyprland/monitors.lua "monitor configuration (must be loaded first)"

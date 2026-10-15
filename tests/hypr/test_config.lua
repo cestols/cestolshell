@@ -195,18 +195,51 @@ test("shell binds use IPC, never global shortcuts", function()
     expect_none(problems)
 end)
 
+-- IPC functions the shell exposes, as a set of "target.fn": every `function name(`
+-- after a `target: "..."` line in the QML files under quickshell/<qs_config>.
+local function shell_ipc_functions(shell_dir)
+    local found = {}
+    local list = io.popen(("find %q -name '*.qml' 2>/dev/null"):format(shell_dir))
+    for path in list:lines() do
+        local target
+        for line in io.lines(path) do
+            target = line:match('^%s*target:%s*"([^"]+)"') or target
+            local fn = target and line:match("^%s*function%s+([%w_]+)%s*%(")
+            if fn then
+                found[target .. "." .. fn] = true
+            end
+        end
+    end
+    list:close()
+    return found
+end
+
 -- Level 2 binds grow with the shell (from 0.1): every bind in keybinds/shell.lua
--- must dispatch a `qs -c <config> ipc call ...` built by hyprland.qs.ipc.
+-- must dispatch a `qs -c <config> ipc call <target> <fn>` built by hyprland.qs.ipc,
+-- and <target>.<fn> must be declared by an IpcHandler of the shell.
 test("level-2 keybinds go through the qs IPC helper", function()
+    local qs_config = require("hyprland.variables").qs_config
+    local available = shell_ipc_functions(root .. "/../quickshell/" .. qs_config)
     local problems = {}
     for _, call in ipairs(mock.find(log, "hl.bind")) do
         if call.source:match("keybinds/shell%.lua$") then
             local dsp = call.args[2]
             local cmd = type(dsp) == "table" and dsp.dispatcher == "hl.dsp.exec_cmd" and dsp.args[1]
-            if not (type(cmd) == "string" and cmd:match("^qs %-c %S+ ipc call ")) then
+            local config, target, fn
+            if type(cmd) == "string" then
+                config, target, fn = cmd:match("^qs %-c '([^']*)' ipc call '([^']*)' '([^']*)'")
+            end
+            if not config then
                 table.insert(
                     problems,
                     ("bind %q in keybinds/shell.lua does not use the IPC helper"):format(call.args[1])
+                )
+            elseif config ~= qs_config then
+                table.insert(problems, ("bind %q calls config %q, not %q"):format(call.args[1], config, qs_config))
+            elseif not available[target .. "." .. fn] then
+                table.insert(
+                    problems,
+                    ("bind %q calls %s.%s, not declared by any IpcHandler"):format(call.args[1], target, fn)
                 )
             end
         end

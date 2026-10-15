@@ -14,8 +14,5 @@ require("hyprland.keybinds.essential")
 require("hyprland.keybinds.shell")
 -- 0.7: require("hyprland.keybinds.extras")
 
--- Shell libs
-require("hyprland.qs")
-
 -- Custom modules
 -- TODO: support custom configs

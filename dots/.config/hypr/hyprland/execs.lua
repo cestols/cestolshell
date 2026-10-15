@@ -13,5 +13,5 @@ hl.on("hyprland.start", function()
     -- Cursor (also applies to apps that ignore XCURSOR_THEME)
     hl.exec_cmd("hyprctl setcursor Bibata-Modern-Classic 24")
 
-    -- 0.1: hl.exec_cmd("qs -c " .. require("hyprland.variables").qs_config)
+    hl.exec_cmd("qs -c " .. require("hyprland.variables").qs_config)
 end)
