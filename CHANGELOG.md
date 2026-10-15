@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/) as descri
 
 ## [Unreleased]
 
+### Changed
+
+- Roadmap resized around visible features: every version has three numbers and is
+    described in `docs/ROADMAP.md`; `dev/scaffold.sh` stages follow the new roadmap.
+
+## [0.1.0] - 2026-10-15
+
+First version of stage 0.1.x: the shell skeleton. It shows nothing yet, but Hyprland
+starts it with the session and controls it over IPC.
+
+### Added
+
+- Quickshell package `quickshell/cestolshell/`: `shell.qml` with the `IpcHandler`
+    `shell` (`ping`, `reload`).
+- `hyprland.qs` Lua module (`qs/init.lua`, `qs/ipc.lua`): builds the
+    `qs -c cestolshell ipc call` dispatchers for level 2 binds.
+- Level 2 keybinds in `keybinds/shell.lua`: `SUPER + CTRL + R` reloads the shell.
+- `execs.lua` starts the shell with the session.
+- Tests: level 2 binds must call an `IpcHandler` function declared in the QML.
+- `dev/run-shell.sh` runs the shell from the repo; `.qmlls.ini` is ignored by git and stow.
+
+### Changed
+
+- The main modifier and the `qs_config` name live in `variables.lua`.
+- 4-space indentation for every file type.
+
+### Fixed
+
+- Default monitor rule uses scale 1.
+- `dev/run-shell.sh` sources `hypr-env.sh` from the repo root.
+
 ## [0.0.1] - 2026-10-15
 
 Stage 0.0.x complete: standalone Hyprland config (Lua modules, level 1 keybinds,

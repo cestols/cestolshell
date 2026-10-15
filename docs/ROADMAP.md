@@ -21,7 +21,7 @@ Legend: ✅ Done (tagged) · 🟢 Done, not tagged yet · 🔵 Next · ⚪ Plann
 
 | Version | Status | What it implements |
 | :--- | :--- | :--- |
-| `0.1.0` | 🟢 | Shell skeleton: Hyprland starts the shell with the session, `IpcHandler` `shell` (`ping`, `reload`), `SUPER + CTRL + R` reloads it through `hyprland.qs` |
+| `0.1.0` | ✅ | Shell skeleton: Hyprland starts the shell with the session, `IpcHandler` `shell` (`ping`, `reload`), `SUPER + CTRL + R` reloads it through `hyprland.qs` |
 | `0.1.1` | 🔵 | Empty bar: a `PanelWindow` anchored to the top of every monitor, reserving its space; a named layer rule for it |
 | `0.1.2` | ⚪ | Clock in the bar (`SystemClock`); minimal `Appearance` with the bar's height, background, text color and font |
 | `0.1.3` | ⚪ | Workspaces in the bar (`Quickshell.Hyprland`): one indicator per workspace, the active one highlighted, click to switch. **Stage complete** |
