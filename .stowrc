@@ -1,3 +1,4 @@
 --dir=dots
 --target=~
 --no-folding
+--ignore=\.qmlls\.ini
