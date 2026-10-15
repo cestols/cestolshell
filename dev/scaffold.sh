@@ -5,15 +5,16 @@
 # (the folder above dev/), regardless of where it is executed from.
 #
 # Usage: dev/scaffold.sh [--stage STAGE|all] [DIRECTORY]
-#   STAGE      one of 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 (default: 0.0)
+#   STAGE      one of 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 (default: 0.0)
 #   DIRECTORY  alternative root (default: repo root)
 #
 # Each stage includes previous ones. Never overwrites existing files:
-# safe to re-run with a higher stage when needed. Stages follow the roadmap
-# in docs/PROJECT.md (section 7).
+# safe to re-run with a higher stage when needed. A stage (e.g. 0.1) creates the
+# structure for its versions (0.1.x); see docs/ROADMAP.md and docs/PROJECT.md
+# (section 7).
 set -euo pipefail
 
-STAGES=(0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7)
+STAGES=(0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8)
 # GPL-3.0 text: old Arch layout first, then the SPDX one (licenses >= 20240728)
 LICENSE_SRCS=(
     /usr/share/licenses/common/GPL3/license.txt
@@ -21,14 +22,13 @@ LICENSE_SRCS=(
 )
 
 H="dots/.config/hypr"
-HL="$H/hyprland"
 Q="dots/.config/quickshell/cestolshell"
 C="$Q/modules/common"
 
 usage() {
     cat <<'EOF'
 Usage: dev/scaffold.sh [--stage STAGE|all] [DIRECTORY]
-  STAGE      one of 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 (default: 0.0)
+  STAGE      one of 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 (default: 0.0)
   DIRECTORY  alternative root (default: repo root)
 EOF
 }
@@ -192,7 +192,7 @@ require("hyprland.rules")
 -- Keybinds
 require("hyprland.keybinds.essential")
 -- 0.1: require("hyprland.keybinds.shell")
--- 0.7: require("hyprland.keybinds.extras")
+-- 0.8: require("hyprland.keybinds.extras")
 
 EOF
     # Hyprland config files
@@ -215,8 +215,8 @@ EOF
     keep docs
 }
 
-# 0.1: core Quickshell foundation (shell.qml, Config, Appearance,
-# Hyprland service, basic IPC).
+# 0.1: simple top bar (clock, workspaces), shell started by Hyprland and
+# reloaded over IPC, minimal Appearance.
 stage_0_1() {
     put "$Q/shell.qml" <<'EOF'
 //@ pragma UseQApplication
@@ -225,16 +225,9 @@ stage_0_1() {
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.modules.common
-import qs.services
 
 ShellRoot {
     id: root
-
-    // Force singleton instantiation at startup
-    property var _config: Config
-    property var _appearance: Appearance
-    property var _hyprlandData: HyprlandData
 
     // Basic IPC: qs -c cestolshell ipc call shell <function>
     IpcHandler {
@@ -251,75 +244,66 @@ ShellRoot {
 }
 EOF
 
-    qml_singleton modules/common/Config.qml "user options (JSON file in ~/.config/cestolshell)"
-    qml_singleton modules/common/Appearance.qml "design tokens: colors, rounding, spacing, fonts, animations"
-    qml_singleton modules/common/Directories.qml "standard paths (config, state, cache) used by the shell"
-    # Named HyprlandData to avoid shadowing the Hyprland singleton of Quickshell.Hyprland
-    qml_singleton services/HyprlandData.qml "Hyprland state not exposed by Quickshell.Hyprland (hyprctl -j)"
+    qml_singleton modules/common/Appearance.qml "colors and sizes used by the shell (M3 tokens from 0.5)"
+    keep "$Q/modules/bar"
 
     # Level 2 binds are added together with the shell feature they control
     lua_stub hyprland/keybinds/shell.lua "level 2: binds towards the shell via IPC (uses hyprland.qs)"
     lua_stub hyprland/qs/init.lua "shell integration: loads and exposes the qs submodules (ipc, ...)"
-
-    put "$HL/qs/ipc.lua" <<'EOF'
--- hyprland/qs/ipc.lua: IPC helper towards Quickshell.
--- All binds towards the shell go through here (qs ipc call), never global shortcuts.
-local vars = require("hyprland.variables")
-
-local M = {}
-
--- Returns a dispatcher running `qs -c <config> ipc call <target> <fn> [args...]`.
-function M.call(target, fn, ...)
-    local cmd = { "qs -c", vars.qs_config, "ipc call", target, fn, ... }
-    return hl.dsp.exec_cmd(table.concat(cmd, " "))
-end
-
-return M
-EOF
+    lua_stub hyprland/qs/ipc.lua "builds qs -c <config> ipc call dispatchers; binds towards the shell go through here, never global shortcuts"
 }
 
-# 0.2: Material Design system tokens and primitive widgets.
+# 0.2: bar status (volume, battery, network, system tray): first services.
 stage_0_2() {
-    keep "$C/widgets"
-    keep assets/fonts
+    keep "$Q/services"
 }
 
-# 0.3: system services integration and functional top bar.
+# 0.3: right sidebar (quick toggles, volume slider).
 stage_0_3() {
-    keep "$Q/modules/bar"
+    keep "$Q/modules/sidebarRight"
 }
 
-# 0.4: notifications server and right sidebar.
+# 0.4: left sidebar with notifications (server, popups, history).
 stage_0_4() {
-    keep "$Q/modules/sidebarRight"
+    keep "$Q/modules/sidebarLeft"
     keep "$Q/modules/notificationPopup"
 }
 
-# 0.5: dynamic Material You colors from the wallpaper.
+# 0.5: refactoring and dynamic colors: M3 tokens, shared widgets, user
+# config, Material You colors from the wallpaper.
 stage_0_5() {
+    qml_singleton modules/common/Config.qml "user options (JSON file in ~/.config/cestolshell)"
+    qml_singleton modules/common/Directories.qml "standard paths (config, state, cache) used by the shell"
+    keep "$C/widgets"
+    keep "$Q/scripts"
+    keep assets/fonts
+    keep assets/wallpapers
     put "dots/.config/matugen/config.toml" <<'EOF'
 # matugen: templates and output (stage 0.5)
 EOF
     keep "dots/.config/matugen/templates"
-    keep "$Q/scripts"
 }
 
-# 0.6: launcher, overview, OSDs, session screen.
+# 0.6: application launcher (replaces the fallback rofi).
 stage_0_6() {
-    keep "$Q/modules/overview"
+    keep "$Q/modules/launcher"
+}
+
+# 0.7: OSDs and session screen.
+stage_0_7() {
     keep "$Q/modules/onScreenDisplay"
     keep "$Q/modules/sessionScreen"
 }
 
-# 0.7: Tier 3 keybindings and CLI installer.
-stage_0_7() {
+# 0.8: Tier 3 keybindings and CLI installer.
+stage_0_8() {
     keep sdata/lib
     put setup <<'EOF'
 #!/usr/bin/env bash
 # setup: installer entrypoint. Planned subcommands: install, uninstall, checkdeps.
 set -euo pipefail
 
-echo "setup: not implemented yet (stage 0.7)" >&2
+echo "setup: not implemented yet (stage 0.8)" >&2
 exit 1
 EOF
     chmod +x "$target/setup"
@@ -349,5 +333,5 @@ Done: $target (up to stage $stage).
 Next steps:
   - fill in the stubs created above (they are never overwritten on re-run)
   - update CHANGELOG.md, docs/PARITY.md and sdata/dist-arch/*.txt
-  - commit, and tag the release once the stage is complete (docs/VERSIONING.md)
+  - commit, and tag each version vX.Y.Z when it works (docs/ROADMAP.md)
 EOF
