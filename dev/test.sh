@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 # Copyright (C) 2026 Cestols
 
-# Run the test suite: Hyprland's own config parser, then the Lua checks in tests/hypr.
+# dev/test.sh: runs Hyprland's own config parser, then the Lua checks in tests/hypr
 # Usage: dev/test.sh
 
 set -euo pipefail

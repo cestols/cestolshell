@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dev/run-shell.sh - Runs the Quickshell config straight from the repo (hot reload on save).
+# dev/run-shell.sh: runs the Quickshell config straight from the repo (hot reload on save)
 # Usage: dev/run-shell.sh [qs options...]   (e.g. -v for verbose logs)
 #
 # Replaces a running instance of the same config. Loads the Hyprland/Wayland env itself

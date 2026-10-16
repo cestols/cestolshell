@@ -1,5 +1,6 @@
--- hyprland/qs/ipc.lua: IPC helper towards Quickshell.
--- All binds towards the shell go through here (qs ipc call), never global shortcuts.
+-- hyprland/qs/ipc.lua: builds the qs ipc call dispatchers used by level 2 binds
+-- All binds to the shell go through here, never global shortcuts.
+
 local vars = require("hyprland.variables")
 
 local M = {}

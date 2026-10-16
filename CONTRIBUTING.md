@@ -35,6 +35,17 @@ comment syntax (after the shebang for scripts), followed by a one-line descripti
 -- hyprland/example.lua: what this file does
 ```
 
+## Comments
+
+- **Description line**: `<path>: what it does`, with the path relative to `hypr/` (Lua), the shell
+    root (QML) or the repo (scripts, tests). Lowercase after the colon, no final period. Extra
+    lines of description follow right below as full sentences, then a blank line.
+- **Sections**: `######## Title ########` for top-level sections (Lua and shell), a plain
+    `-- Title` comment for groups inside them.
+- **Planned work**: `TODO(X.Y): ...` with the stage or version that does it (`TODO(0.6)`,
+    `TODO(1.x)`); plain `TODO:` when no version is planned.
+- **Keybinds**: call them "level 1/2/3" in code and comments.
+
 ## Testing
 
 ```bash

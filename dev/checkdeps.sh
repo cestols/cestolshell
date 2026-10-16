@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Print the packages listed in sdata/dist-arch/*.txt that are not installed.
+# dev/checkdeps.sh: lists the packages from sdata/dist-arch/*.txt that are not installed
 # Usage: dev/checkdeps.sh [group ...]   (e.g. core system; default: all lists)
 
 set -euo pipefail

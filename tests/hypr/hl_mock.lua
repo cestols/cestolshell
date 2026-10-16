@@ -1,7 +1,7 @@
 -- SPDX-License-Identifier: GPL-3.0-only
 -- Copyright (C) 2026 Cestols
 
--- tests/hypr/hl_mock.lua: strict, recording mock of the `hl` API.
+-- tests/hypr/hl_mock.lua: strict, recording mock of the `hl` API
 -- The API surface is parsed from the stubs shipped with Hyprland (hl.meta.lua),
 -- so calling a function the installed Hyprland does not have raises an error.
 

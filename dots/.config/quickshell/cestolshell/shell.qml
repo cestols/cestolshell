@@ -1,3 +1,4 @@
+// shell.qml: shell entry point, loads the singletons and exposes the shell IPC
 //@ pragma UseQApplication
 //@ pragma Env QT_QUICK_CONTROLS_STYLE=Basic
 

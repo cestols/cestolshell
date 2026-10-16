@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# dev/hypr-env.sh: exports the live Hyprland/Wayland env (HYPRLAND_INSTANCE_SIGNATURE, WAYLAND_DISPLAY)
 # Usage: source dev/hypr-env.sh   (DO NOT execute: must modify the current shell)
 
 XDG_RUNTIME_DIR="/run/user/$(id -u)"

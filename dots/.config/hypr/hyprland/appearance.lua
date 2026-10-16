@@ -1,6 +1,5 @@
--- hyprland/appearance.lua: base appearance: gaps, borders, decorations
-
--- Colors are static M3 roles for now; matugen will generate them in 0.5.
+-- hyprland/appearance.lua: gaps, borders, decoration, misc
+-- Colors are static M3 roles; matugen replaces them in 0.5.
 
 hl.config({
     general = {
@@ -54,7 +53,7 @@ hl.config({
             range = 20,
             offset = { 0, 2 },
             render_power = 10,
-            color = "rgba(00000020)",
+            color = "rgba(00000020)", -- shadow
         },
 
         dim_inactive = true,

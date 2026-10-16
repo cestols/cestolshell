@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# ==============================================================================
-# dev/run-nested.sh - Creates a sandboxed environment for a nested Hyprland
-# ==============================================================================
+# dev/run-nested.sh: runs a nested Hyprland in a sandboxed XDG env linked to dots/.config
 set -euo pipefail
 
 # 1. Find the repository root (one level above dev/)

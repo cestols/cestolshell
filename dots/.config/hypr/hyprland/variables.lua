@@ -1,4 +1,4 @@
--- hyprland/variables.lua: default programs
+-- hyprland/variables.lua: main modifier, default programs, session commands, qs_config name
 
 local vars = {
     -- Quickshell config name (folder inside ~/.config/quickshell)

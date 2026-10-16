@@ -1,8 +1,8 @@
 -- SPDX-License-Identifier: GPL-3.0-only
 -- Copyright (C) 2026 Cestols
 
--- tests/hypr/test_config.lua: checks on the Hyprland Lua config that
--- `Hyprland --verify-config` does not cover (callback bodies, duplicates, project rules).
+-- tests/hypr/test_config.lua: checks on the Hyprland Lua config that `Hyprland --verify-config` misses
+-- Covers callback bodies, duplicates and project rules.
 -- Usage: lua tests/hypr/test_config.lua [hypr config dir] [hl.meta.lua path]
 
 local here = debug.getinfo(1, "S").source:sub(2):match("^(.*)/") or "."

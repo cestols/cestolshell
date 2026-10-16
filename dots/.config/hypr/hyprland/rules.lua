@@ -84,10 +84,12 @@ hl.window_rule({ name = "tearing-minecraft", match = { title = ".*minecraft.*" }
 
 -- ######## Workspace rules ########
 
+-- More room around the special workspace
 hl.workspace_rule({ workspace = "special:magic", gaps_out = 30 })
 
 -- ######## Layer rules ########
 
+-- Layer blur shows the wallpaper, not the windows below
 hl.layer_rule({ name = "xray-layers", match = { namespace = ".*" }, xray = true })
 
 -- Fallback launcher: fast and blurred
@@ -103,4 +105,4 @@ hl.layer_rule({ name = "launcher-gtk4", match = { namespace = "^gtk4-layer-shell
 -- Tools that must appear instantly
 hl.layer_rule({ name = "no-anim-selection", match = { namespace = "^(selection|hyprpicker)$" }, no_anim = true })
 
--- 0.1+: quickshell:* namespaces (bar, sidebars, overview, session)
+-- TODO(0.1): quickshell:* namespaces (bar first, then sidebars, overview, session)

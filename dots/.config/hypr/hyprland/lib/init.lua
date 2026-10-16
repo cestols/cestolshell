@@ -1,1 +1,1 @@
--- hyprland/lib/init.lua: file for future use (e.g. utility functions)
+-- hyprland/lib/init.lua: shared helpers for the Hyprland config (empty for now)

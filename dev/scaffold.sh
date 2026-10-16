@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dev/scaffold.sh - Creates the cestolshell repo structure stage by stage.
+# dev/scaffold.sh: creates the cestolshell repo structure stage by stage
 #
 # Must be kept inside dev/ at the repo root and operates on the root directory
 # (the folder above dev/), regardless of where it is executed from.
@@ -72,7 +72,7 @@ if ((last < 0)); then
     exit 1
 fi
 
-# ---------------------------------------------------------------- helpers
+# ######## Helpers ########
 
 # keep <dir>: creates the directory and adds a .gitkeep ONLY if it is empty.
 # If the directory already contains other files, no .gitkeep is created
@@ -147,9 +147,9 @@ install_license() {
     echo "WARNING: GPL-3.0 text not found (${LICENSE_SRCS[*]}), copy LICENSE manually" >&2
 }
 
-# ---------------------------------------------------------------- stages
+# ######## Stages ########
 
-# 0.0: standalone Hyprland Lua config (Tier 1 binds, hyprlock, fallback launcher).
+# 0.0: standalone Hyprland Lua config (level 1 binds, hyprlock, fallback launcher).
 # Tooling files (.gitignore, .editorconfig, stylua.toml, .luacheckrc,
 # .pre-commit-config.yaml, .stowrc) are maintained by hand in the repo.
 stage_0_0() {
@@ -177,10 +177,10 @@ EOF
     install_license
 
     put "$H/hyprland.lua" <<'EOF'
--- Hyprland config file
+-- hyprland.lua: entry point, requires the hyprland.* modules in load order
 local lib = require("hyprland.lib")
 
--- Default configs (monitors must be first)
+-- Base config (monitors must be first)
 require("hyprland.monitors")
 require("hyprland.env")
 require("hyprland.execs")
@@ -191,20 +191,22 @@ require("hyprland.rules")
 
 -- Keybinds
 require("hyprland.keybinds.essential")
--- 0.1: require("hyprland.keybinds.shell")
--- 0.8: require("hyprland.keybinds.extras")
+-- TODO(0.1): level 2 binds
+-- require("hyprland.keybinds.shell")
+-- TODO(0.8): level 3 binds
+-- require("hyprland.keybinds.extras")
 
 EOF
     # Hyprland config files
     lua_stub hyprland/monitors.lua "monitor configuration (must be loaded first)"
     lua_stub hyprland/env.lua "environment variables"
     lua_stub hyprland/execs.lua "programs to start with the session"
-    lua_stub hyprland/appearance.lua "base appearance: gaps, borders, decorations"
+    lua_stub hyprland/appearance.lua "gaps, borders, decoration, misc"
     lua_stub hyprland/animations.lua "base animations"
     lua_stub hyprland/input.lua "keyboard, mouse, touchpad"
     lua_stub hyprland/rules.lua "window, workspace, and layer rules"
-    lua_stub hyprland/variables.lua "default programs"
-    lua_stub hyprland/keybinds/essential.lua "level 1: binds that only talk to Hyprland and system programs, never to the shell"
+    lua_stub hyprland/variables.lua "main modifier, default programs, session commands, qs_config name"
+    lua_stub hyprland/keybinds/essential.lua "level 1 binds, only Hyprland and system programs, never the shell"
 
     # Libs
     lua_stub hyprland/lib/init.lua "shared helpers for the Hyprland config"
@@ -219,6 +221,7 @@ EOF
 # reloaded over IPC, minimal Appearance.
 stage_0_1() {
     put "$Q/shell.qml" <<'EOF'
+// shell.qml: shell entry point, exposes the shell IPC
 //@ pragma UseQApplication
 //@ pragma Env QT_QUICK_CONTROLS_STYLE=Basic
 
@@ -248,9 +251,9 @@ EOF
     keep "$Q/modules/bar"
 
     # Level 2 binds are added together with the shell feature they control
-    lua_stub hyprland/keybinds/shell.lua "level 2: binds towards the shell via IPC (uses hyprland.qs)"
-    lua_stub hyprland/qs/init.lua "shell integration: loads and exposes the qs submodules (ipc, ...)"
-    lua_stub hyprland/qs/ipc.lua "builds qs -c <config> ipc call dispatchers; binds towards the shell go through here, never global shortcuts"
+    lua_stub hyprland/keybinds/shell.lua "level 2 binds, talk to the shell over IPC (hyprland.qs)"
+    lua_stub hyprland/qs/init.lua "shell integration, loads and exposes the qs submodules (ipc, ...)"
+    lua_stub hyprland/qs/ipc.lua "builds the qs ipc call dispatchers used by level 2 binds"
 }
 
 # 0.2: bar status (volume, battery, network, system tray): first services.
@@ -295,7 +298,7 @@ stage_0_7() {
     keep "$Q/modules/sessionScreen"
 }
 
-# 0.8: Tier 3 keybindings and CLI installer.
+# 0.8: level 3 binds and CLI installer.
 stage_0_8() {
     keep sdata/lib
     put setup <<'EOF'
@@ -307,10 +310,10 @@ echo "setup: not implemented yet (stage 0.8)" >&2
 exit 1
 EOF
     chmod +x "$target/setup"
-    lua_stub hyprland/keybinds/extras.lua "level 3: comfort binds"
+    lua_stub hyprland/keybinds/extras.lua "level 3 binds (workspaces, scratchpads, submaps, zoom, utilities)"
 }
 
-# ---------------------------------------------------------------- main
+# ######## Main ########
 
 mkdir -p "$target"
 for i in "${!STAGES[@]}"; do

@@ -1,11 +1,11 @@
--- hyprland/keybinds/essential.lua: level 1: binds that only talk to Hyprland and system programs, never to the shell
+-- hyprland/keybinds/essential.lua: level 1 binds, only Hyprland and system programs, never the shell
 
 local vars = require("hyprland.variables")
 
 -- ######## Apps ########
 
 hl.bind(vars.mod .. " + Return", hl.dsp.exec_cmd(vars.terminal))
-hl.bind(vars.mod .. " + R", hl.dsp.exec_cmd(vars.launcher)) -- 0.6: replaced by the shell launcher
+hl.bind(vars.mod .. " + R", hl.dsp.exec_cmd(vars.launcher)) -- TODO(0.6): replace with the shell launcher
 hl.bind(vars.mod .. " + E", hl.dsp.exec_cmd(vars.file_manager))
 hl.bind(vars.mod .. " + W", hl.dsp.exec_cmd(vars.browser))
 hl.bind(vars.mod .. " + C", hl.dsp.exec_cmd(vars.code_editor))
