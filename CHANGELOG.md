@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/) as descri
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-17
+
+Second version of stage 0.1.x: the first visible piece of the shell, an empty bar.
+
+### Added
+
+- Empty top bar (`modules/cestolshell/bar/Bar.qml`): one `PanelWindow` per monitor
+    (`Variants` over `Quickshell.screens`), anchored to the top and reserving its space,
+    on the layer-shell namespace `quickshell:bar`; loaded by `shell.qml`.
+- Layer rule `bar` in `rules.lua` for the `quickshell:bar` namespace (blur, `ignore_alpha`).
+
 ### Changed
 
 - Roadmap resized around visible features: every version has three numbers and is
