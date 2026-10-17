@@ -1,4 +1,4 @@
-// shell.qml: shell entry point, loads the singletons and exposes the shell IPC
+// shell.qml: shell entry point, loads the singletons and the bar, exposes the shell IPC
 //@ pragma UseQApplication
 //@ pragma Env QT_QUICK_CONTROLS_STYLE=Basic
 
@@ -6,6 +6,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.modules.common
+import qs.modules.cestolshell.bar
 import qs.services
 
 ShellRoot {
@@ -28,4 +29,6 @@ ShellRoot {
             Quickshell.reload(false);
         }
     }
+
+    Bar { }
 }

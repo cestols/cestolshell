@@ -105,4 +105,10 @@ hl.layer_rule({ name = "launcher-gtk4", match = { namespace = "^gtk4-layer-shell
 -- Tools that must appear instantly
 hl.layer_rule({ name = "no-anim-selection", match = { namespace = "^(selection|hyprpicker)$" }, no_anim = true })
 
--- TODO(0.1): quickshell:* namespaces (bar first, then sidebars, overview, session)
+-- Quickshell layer rules
+hl.layer_rule({
+    name = "bar",
+    match = { namespace = "quickshell:bar" },
+    blur = true,
+    ignore_alpha = 0.2,
+})
